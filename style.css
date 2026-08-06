@@ -42,3 +42,19 @@ main {
 
     cursor: pointer;
 }
+
+.poi {
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.poi-contenu {
+    margin: 0 0 12px 0;
+    font-size: 1.1rem;
+}
+
+.poi-meta {
+    font-size: 0.85rem;
+}
