@@ -40,6 +40,12 @@ Cette organisation permet de faire évoluer progressivement l'application :
 - export des données ;
 - évolution future du stockage.
 
+## Organisation du code JavaScript
+
+Les événements utilisateur déclenchent des fonctions dédiées.
+
+La gestion des actions métier (création, modification, suppression) est séparée de la gestion des événements DOM afin de garder un code plus facilement maintenable.
+
 ## Évolution
 
 Les fonctionnalités complexes (IA, recherche sémantique, synchronisation...) ne seront envisagées qu'après validation du besoin.
