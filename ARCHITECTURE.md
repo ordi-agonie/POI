@@ -27,6 +27,17 @@ Les données utilisateur doivent être exportables.
 
 Le stockage initial sera local.
 
+## Structure applicative
+
+L'application sépare progressivement les données métier de leur affichage.
+
+Les POI sont représentés comme des objets JavaScript stockés dans une collection en mémoire. L'affichage HTML est généré à partir de ces données.
+
+Cette séparation permet de faire évoluer plus facilement :
+- la sauvegarde locale ;
+- la modification et suppression des POI ;
+- l'évolution future du stockage.
+
 ## Évolution
 
 Les fonctionnalités complexes (IA, recherche sémantique, synchronisation...) ne seront envisagées qu'après validation du besoin.
