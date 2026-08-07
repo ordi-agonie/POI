@@ -9,25 +9,16 @@ const pois = [];
 
 // --- Fonctions ---
 
-function ouvrirFormulaire() {
-  formulaire.hidden = false;
+function chargerPois() {
+  const donnees = localStorage.getItem("pois");
+
+  if (donnees) {
+    pois.push(...JSON.parse(donnees));
+  }
 }
 
-function afficherPois() {
-  listePoi.innerHTML = "";
-
-  pois.forEach((poi) => {
-    const nouveauPoi = document.createElement("article");
-
-    nouveauPoi.classList.add("poi");
-
-    nouveauPoi.innerHTML = `
-      <p class="poi-contenu">${poi.contenu}</p>
-    `;
-    // --- Éléments HTML ---
-
-    listePoi.appendChild(nouveauPoi);
-  });
+function ouvrirFormulaire() {
+  formulaire.hidden = false;
 }
 
 function enregistrerPoi() {
@@ -44,6 +35,7 @@ function enregistrerPoi() {
   };
   
   pois.push(nouveauPoi);
+  sauvegarderPois();
 
   afficherPois();
 
@@ -51,7 +43,30 @@ function enregistrerPoi() {
   formulaire.hidden = true;
 }
 
+function afficherPois() {
+  listePoi.innerHTML = "";
+
+  pois.forEach((poi) => {
+    const nouveauPoi = document.createElement("article");
+
+    nouveauPoi.classList.add("poi");
+
+    nouveauPoi.innerHTML = `
+      <p class="poi-contenu">${poi.contenu}</p>
+    `;
+
+    listePoi.appendChild(nouveauPoi);
+  });
+}
+
+function sauvegarderPois() {
+  localStorage.setItem("pois", JSON.stringify(pois));
+}
+
 // --- Événements ---
+
+chargerPois();
+afficherPois();
 
 bouton.addEventListener("click",ouvrirFormulaire);
 boutonEnregistrer.addEventListener("click", enregistrerPoi);
