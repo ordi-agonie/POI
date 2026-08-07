@@ -26,6 +26,7 @@ function enregistrerPoi() {
   listePoi.appendChild(nouveauPoi);
 
   contenuPoi.value = "";
+  formulaire.hidden = true;
 }
 
 bouton.addEventListener("click",ouvrirFormulaire);
