@@ -1,5 +1,8 @@
 const bouton = document.getElementById("nouveau-poi");
+const formulaire = document.getElementById("formulaire-poi");
 
-bouton.addEventListener("click", () => {
-    alert("Ajouter un nouveau POI");
-});
+function ouvrirFormulaire() {
+  formulaire.hidden = false;
+}
+
+bouton.addEventListener("click",ouvrirFormulaire);
