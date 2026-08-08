@@ -1,3 +1,6 @@
+let modeFormulaire = "creation";
+let poiEnCoursId = null;
+
 // --- Éléments HTML ---
 
 const bouton = document.getElementById("nouveau-poi");
@@ -5,6 +8,7 @@ const formulaire = document.getElementById("formulaire-poi");
 const contenuPoi = document.getElementById("contenu-poi");
 const listePoi = document.getElementById("liste-poi");
 const boutonEnregistrer = document.getElementById("enregistrer-poi");
+const boutonAnnuler = document.getElementById("annuler-poi");
 const pois = [];
 
 // --- Fonctions ---
@@ -28,20 +32,31 @@ function enregistrerPoi() {
   if (texte === "") {
     return;
   }
+
+  if (modeFormulaire === "modification") {
+    const poi = pois.find((poi) => poi.id === poiEnCoursId);
+    
+    if (!poi) {
+      return;
+    }
+
+    poi.contenu = texte;
+  } else {
+    const nouveauPoi = {
+      id: Date.now(),
+      contenu: texte,
+      createdAt: new Date()
+    };
   
-  const nouveauPoi = {
-    id: Date.now(),
-    contenu: texte,
-    createdAt: new Date()
-  };
-  
-  pois.push(nouveauPoi);
+    pois.push(nouveauPoi);
+  }
   sauvegarderPois();
 
-  afficherPois();
+  fermerFormulaire();
+}
 
-  contenuPoi.value = "";
-  formulaire.hidden = true;
+function annulerFormulaire() {
+  fermerFormulaire();
 }
 
 function afficherPois() {
@@ -81,14 +96,33 @@ function supprimerPoi(id) {
 function modifierPoi(id) {
   const poi = pois.find((poi) => poi.id === id);
 
-  const nouveauTexte = prompt("Modifier la citation :", poi.contenu);
+  if (!poi) {
+    return;
+  }
+  
+  //const nouveauTexte = prompt("Modifier la citation :", poi.contenu);
 
-  if (nouveauTexte !== null && nouveauTexte !== "") {
+  modeFormulaire = "modification";
+  poiEnCoursId = id;
+
+  contenuPoi.value = poi.contenu;
+  formulaire.hidden = false;
+  contenuPoi.focus();
+  
+  /*if (nouveauTexte !== null && nouveauTexte !== "") {
     poi.contenu = nouveauTexte;
 
     sauvegarderPois();
     afficherPois();
-  }
+  }*/
+}
+
+function fermerFormulaire() {
+  contenuPoi.value = "";
+  formulaire.hidden = true;
+
+  modeFormulaire = "creation";
+  poiEnCoursId = null;
 }
 
 // --- Événements ---
@@ -98,6 +132,7 @@ afficherPois();
 
 bouton.addEventListener("click",ouvrirFormulaire);
 boutonEnregistrer.addEventListener("click", enregistrerPoi);
+boutonAnnuler.addEventListener("click", annulerFormulaire);
 listePoi.addEventListener("click", (event) => {
   const bouton = event.target;
 
