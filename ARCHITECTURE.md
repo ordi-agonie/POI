@@ -11,41 +11,42 @@ Créer une application personnelle simple, durable et utilisable principalement 
 - Garder les données sous le contrôle de l'utilisateur.
 - Construire progressivement selon les besoins réels.
 
-## Plateforme envisagée
+## Plateforme
 
-Progressive Web App (PWA).
+L'application est développée comme une Progressive Web App (PWA).
 
-Raisons :
-- accessible depuis un navigateur ;
-- installable sur Android ;
-- possibilité de fonctionner hors ligne ;
-- développement possible avec des technologies web.
+Ce choix permet notamment :
+- une utilisation depuis un navigateur ;
+- une installation sur Android ;
+- un fonctionnement hors ligne ;
+- l'utilisation de technologies web standards.
 
 ## Données
 
-Les données utilisateur doivent être exportables.
+Les données utilisateur sont stockées localement sur l'appareil.
 
-Le stockage initial sera local.
+Le stockage initial utilise `localStorage`.
 
-## Structure applicative
+Les données doivent rester exportables afin de conserver le contrôle de l'utilisateur sur celles-ci.
 
-Les données métier sont séparées de leur affichage.
+Les POI sont représentés comme des objets JavaScript dans une collection en mémoire. L'interface est générée à partir de ces données.
 
-Les POI sont représentés comme des objets JavaScript stockés dans une collection en mémoire. L'affichage HTML est généré à partir de ces données.
+## Organisation du code
 
-Le stockage initial utilise localStorage afin de conserver les données localement sur l'appareil.
+Les événements DOM déclenchent des fonctions dédiées.
 
-Cette organisation permet de faire évoluer progressivement l'application :
-- modification et suppression des POI ;
-- export des données ;
-- évolution future du stockage.
+La logique métier des POI (création, affichage, modification, suppression et sauvegarde) est séparée de la gestion des événements utilisateur.
 
-## Organisation du code JavaScript
-
-Les événements utilisateur déclenchent des fonctions dédiées.
-
-La gestion des actions métier (création, modification, suppression) est séparée de la gestion des événements DOM afin de garder un code plus facilement maintenable.
+Cette séparation permet de faire évoluer les fonctionnalités sans concentrer toute la logique dans les gestionnaires d'événements.
 
 ## Évolution
 
-Les fonctionnalités complexes (IA, recherche sémantique, synchronisation...) ne seront envisagées qu'après validation du besoin.
+L'architecture actuelle reste volontairement simple.
+
+Les besoins futurs pourront conduire à faire évoluer :
+- le stockage ;
+- l'export des données ;
+- la structure des POI ;
+- l'organisation du code.
+
+Les fonctionnalités plus complexes, comme l'IA, la recherche sémantique ou la synchronisation, ne seront envisagées qu'après validation du besoin.
