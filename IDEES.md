@@ -2,7 +2,7 @@
 
 Ce fichier contient les idées potentielles pour un développement futur.
 
-## Validées
+## Retenues pour une version future
 
 ## À évaluer
 

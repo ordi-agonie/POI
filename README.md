@@ -2,15 +2,17 @@
 
 Point Of Interest
 
-Application personnelle ayant pour but la capture, l'organisation et la redécouverte de citations, concepts et idées.
+Application personnelle permettant de capturer, organiser, retrouver et redécouvrir des citations, concepts et idées afin de pouvoir les réutiliser au moment opportun dans une discussion, un écrit ou une réflexion.
 
 ## Objectif
 
-Retrouver facilement une idée pertinente au moment où elle peut être utile.
+Retrouver facilement une formulation, une idée ou une perspective pertinente au moment où elle peut être utile.
 
 ## Principes
 
-- Le contenu du POI est la seule information obligatoire. Les autres métadonnées peuvent être ajoutées ou complétées plus tard.
+- L'ajout d'un POI doit être rapide.
+- Le contenu du POI est la seule information obligatoire.
+- Les autres informations peuvent être ajoutées ou complétées plus tard.
 - Un POI peut être contextualisé progressivement.
-- Garder la simplicité.
-- Les données appartiennent à l'utilisateur et sont exportables.
+- Les données appartiennent à l'utilisateur et restent exportables.
+- L'application doit rester simple et répondre à des besoins réels.

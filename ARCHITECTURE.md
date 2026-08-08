@@ -48,5 +48,3 @@ Les besoins futurs pourront conduire à faire évoluer :
 - l'export des données ;
 - la structure des POI ;
 - l'organisation du code.
-
-Les fonctionnalités plus complexes, comme l'IA, la recherche sémantique ou la synchronisation, ne seront envisagées qu'après validation du besoin.
