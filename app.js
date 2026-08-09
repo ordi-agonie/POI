@@ -87,6 +87,10 @@ function sauvegarderPois() {
 function supprimerPoi(id) {
   const index = pois.findIndex((poi) => poi.id === id);
 
+  if (index === -1) {
+    return;
+  }
+  
   pois.splice(index, 1);
 
   sauvegarderPois();
