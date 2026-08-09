@@ -6,6 +6,8 @@ let poiEnCoursId = null;
 const bouton = document.getElementById("nouveau-poi");
 const formulaire = document.getElementById("formulaire-poi");
 const contenuPoi = document.getElementById("contenu-poi");
+const raisonConservationPoi = document.getElementById("raison-conservation-poi");
+const favoriPoi = document.getElementById("favori-poi");
 const listePoi = document.getElementById("liste-poi");
 const boutonEnregistrer = document.getElementById("enregistrer-poi");
 const boutonAnnuler = document.getElementById("annuler-poi");
@@ -20,12 +22,13 @@ function chargerPois() {
     const poisSauvegardes = JSON.parse(donnees);
     pois.push(
       ...poisSauvegardes.map((poi)=>({
-        ...pois,
+        ...poi,
         statut: poi.statut ?? "a_classer",
         favori: poi.favori ?? false,
         raisonConservation: poi.raisonConservation ?? ""
       }))
-    );
+    )
+    afficherPois();
   }
 }
 
@@ -40,6 +43,9 @@ function enregistrerPoi() {
   if (texte === "") {
     return;
   }
+  
+  const raisonConservation = raisonConservationPoi.value;
+  const favori = favoriPoi.checked;
 
   if (modeFormulaire === "modification") {
     const poi = pois.find((poi) => poi.id === poiEnCoursId);
@@ -49,20 +55,22 @@ function enregistrerPoi() {
     }
 
     poi.contenu = texte;
+    poi.raisonConservation = raisonConservation;
+    poi.favori = favori;
   } else {
     const nouveauPoi = {
       id: Date.now(),
       contenu: texte,
       createdAt: new Date(),
       statut: "a_classer",
-      favori: false,
-      raisonConservation: ""
+      favori: favori,
+      raisonConservation: raisonConservation
     };
   
     pois.push(nouveauPoi);
   }
   sauvegarderPois();
-
+  afficherPois();
   fermerFormulaire();
 }
 
@@ -114,26 +122,23 @@ function modifierPoi(id) {
   if (!poi) {
     return;
   }
-  
-  //const nouveauTexte = prompt("Modifier la citation :", poi.contenu);
 
   modeFormulaire = "modification";
   poiEnCoursId = id;
 
   contenuPoi.value = poi.contenu;
-  formulaire.hidden = false;
-  contenuPoi.focus();
-  
-  /*if (nouveauTexte !== null && nouveauTexte !== "") {
-    poi.contenu = nouveauTexte;
+  raisonConservationPoi.value = poi.raisonConservation;
+  favoriPoi.checked = poi.favori;
 
-    sauvegarderPois();
-    afficherPois();
-  }*/
+  contenuPoi.focus();
+  formulaire.hidden = false;
 }
 
 function fermerFormulaire() {
+  
   contenuPoi.value = "";
+  raisonConservationPoi.value = "";
+  favoriPoi.checked = false;
   formulaire.hidden = true;
 
   modeFormulaire = "creation";
