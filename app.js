@@ -17,7 +17,15 @@ function chargerPois() {
   const donnees = localStorage.getItem("pois");
 
   if (donnees) {
-    pois.push(...JSON.parse(donnees));
+    const poisSauvegardes = JSON.parse(donnees);
+    pois.push(
+      ...poisSauvegardes.map((poi)=>({
+        ...pois,
+        statut: poi.statut ?? "a_classer",
+        favori: poi.favori ?? false,
+        raisonConservation: poi.raisonConservation ?? ""
+      }))
+    );
   }
 }
 
