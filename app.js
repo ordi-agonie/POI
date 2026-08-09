@@ -45,7 +45,10 @@ function enregistrerPoi() {
     const nouveauPoi = {
       id: Date.now(),
       contenu: texte,
-      createdAt: new Date()
+      createdAt: new Date(),
+      statut: "a_classer",
+      favori: false,
+      raisonConservation: ""
     };
   
     pois.push(nouveauPoi);
