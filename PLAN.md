@@ -18,32 +18,37 @@
 
 ## Étape 3 — Modèle de données V1
 
-- [ ] Définir les champs d'un POI
-- [ ] Définir la provenance
-- [ ] Définir le statut « À classer »
-- [ ] Définir les thèmes
-- [ ] Définir les mots-clés
+- [x] Définir les champs d'un POI
+- [x] Définir la provenance
+- [x] Définir le statut « À classer »
+- [x] Définir le favori
+- [x] Définir la raison de conservation
+- [x] Définir les notes complémentaires
 - [ ] Adapter le modèle JavaScript
+- [ ] Gérer la compatibilité avec les données existantes
 
-## Étape 4 — Organisation
+Les thèmes, mots-clés, groupes et relations entre POI sont volontairement reportés après la V1.
+
+## Étape 4 — Enrichissement et organisation
 
 - [ ] Favoris
 - [ ] À classer
-- [ ] Thèmes
-- [ ] Mots-clés
+- [ ] Raison de conservation
+- [ ] Provenance
+- [ ] Notes complémentaires
 
 ## Étape 5 — Recherche
 
 - [ ] Recherche plein texte
-- [ ] Recherche par auteur
-- [ ] Recherche par source
-- [ ] Recherche par thème
-- [ ] Recherche par mots-clés
+
+Les recherches par auteur, source, thème et mots-clés seront réévaluées après observation des usages réels.
 
 ## Étape 6 — Découverte
 
-- [ ] POI aléatoire
+- [ ] Redécouverte des POI
 - [ ] Favoris
+
+L'affichage aléatoire pourra être ajouté si son utilité est confirmée par l'usage.
 
 ## Étape 7 — Import / export
 
@@ -61,3 +66,7 @@
 ## Après la V1
 
 Réévaluer les besoins réels avant d'ajouter de nouvelles fonctionnalités.
+
+Ne pas ajouter de complexité sur la seule base d'une fonctionnalité envisagée.
+
+Les thèmes, mots-clés, groupes, relations entre POI, recherche sémantique et fonctionnalités d'IA restent des possibilités futures.
