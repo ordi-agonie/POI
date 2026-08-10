@@ -1,7 +1,3 @@
-
-### `DECISIONS.md`
-
-```md
 # Décisions
 
 ## Utiliser une PWA
@@ -65,14 +61,62 @@ Ces dates répondent à deux questions différentes :
 - `createdAt` → quand ai-je capturé ce POI ?
 - `provenance.date` → quand la source a-t-elle été publiée ou diffusée ?
 
-## Utiliser une provenance précise
+## Utiliser une provenance facultative et partielle
 
-**Décision :** la provenance décrit l'occurrence précise dont provient le contenu, tout en conservant la publication ou l'origine générale.
+**Décision :** un POI peut comporter une ou plusieurs informations de provenance, sans que celles-ci soient obligatoires ni nécessairement complètes.
 
-**Exemple :**
+Une provenance peut notamment contenir :
 
-```text
-publication : Le Monde diplomatique
-titre       : Le vrai sens des "fake news"
-auteurs     : Daniel Zamora
-date        : 2025-07
+- `type` ;
+- `source` ;
+- `titre` ;
+- `auteur` ;
+- `date` ;
+- `numero` ;
+- `lien`.
+
+**Pourquoi :**
+
+Les POI réels peuvent provenir de sources très différentes et les informations disponibles au moment de la capture sont variables.
+
+Le modèle doit pouvoir conserver une provenance incomplète sans empêcher l'enregistrement du POI.
+
+## Distinguer la provenance principale de la provenance de découverte
+
+**Décision :** lorsqu'un contenu est découvert dans une source différente de sa source d'origine, les deux provenances peuvent être distinguées.
+
+**Pourquoi :**
+
+Un article peut par exemple citer un livre, une personne ou un article antérieur. Confondre la source qui contient le contenu et la source dans laquelle l'utilisateur l'a découvert ferait perdre une information utile.
+
+La provenance de découverte reste facultative et n'est utilisée que lorsqu'elle apporte une information réelle.
+
+## Conserver une zone de notes non structurées
+
+**Décision :** un POI peut contenir des notes complémentaires destinées aux informations qui ne disposent pas encore d'un champ structuré.
+
+**Pourquoi :**
+
+Il est préférable de conserver une information imparfaitement structurée plutôt que de la perdre ou de créer prématurément un champ spécifique.
+
+Le champ `notes` pourra être progressivement remplacé ou complété par des champs dédiés lorsque les usages réels justifieront cette évolution.
+
+## Ne pas sur-structurer le modèle
+
+**Décision :** ne pas ajouter de champs ou de structures uniquement pour des fonctionnalités hypothétiques.
+
+**Pourquoi :**
+
+Le modèle doit évoluer à partir des usages réels des POI.
+
+Les thèmes, mots-clés, groupes, relations entre POI, bibliographie détaillée, localisation précise dans une source et autres métadonnées spécialisées pourront être ajoutés ultérieurement si leur utilité est démontrée.
+
+## Privilégier la conservation de l'information à sa normalisation immédiate
+
+**Décision :** lorsqu'une information ne trouve pas encore naturellement sa place dans le modèle, elle doit pouvoir être conservée sans être perdue, notamment dans `notes`.
+
+**Pourquoi :**
+
+Le modèle est encore expérimental. Une normalisation trop précoce risquerait de conduire à des migrations répétées et à une complexité inutile.
+
+Les données réelles serviront de base aux futures évolutions du modèle.
