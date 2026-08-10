@@ -37,6 +37,8 @@ Les POI sont représentés comme des objets JavaScript dans une collection en m�
 
 Un POI représente une unité de contenu que l'utilisateur souhaite conserver.
 
+Le contenu est la seule information obligatoire. Les autres informations peuvent être ajoutées ou complétées ultérieurement.
+
 Structure conceptuelle actuelle :
 
 ```text
@@ -47,12 +49,22 @@ POI
 ├── statut
 ├── favori
 ├── raisonConservation
-├── tags[]
-├── groupes[]
-└── provenance
-    ├── type
-    ├── publication
-    ├── titre
-    ├── auteurs[]
-    ├── date
-    └── url
+├── notes
+└── provenance ?
+    ├── principale ?
+    │   ├── type
+    │   ├── source
+    │   ├── titre
+    │   ├── auteur
+    │   ├── date
+    │   ├── numero
+    │   └── lien
+    │
+    └── decouverte ?
+        ├── type
+        ├── source
+        ├── titre
+        ├── auteur
+        ├── date
+        ├── numero
+        └── lien
