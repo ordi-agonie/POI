@@ -19,11 +19,13 @@
 ## Étape 3 — Modèle de données V1
 
 - [x] Définir les champs d'un POI
-- [x] Définir la provenance
+- [x] Définir origine, référence et découverte
 - [x] Définir le statut « À classer »
 - [x] Définir le favori
 - [x] Définir la raison de conservation
 - [x] Définir les notes complémentaires
+- [ ] Adapter le modèle JavaScript
+- [ ] Gérer la compatibilité avec les données existantes
 - [ ] Adapter le modèle JavaScript
 - [ ] Gérer la compatibilité avec les données existantes
 

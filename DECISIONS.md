@@ -120,3 +120,31 @@ Les thèmes, mots-clés, groupes, relations entre POI, bibliographie détaillée
 Le modèle est encore expérimental. Une normalisation trop précoce risquerait de conduire à des migrations répétées et à une complexité inutile.
 
 Les données réelles serviront de base aux futures évolutions du modèle.
+
+## Distinguer origine, référence et découverte
+
+**Décision :** distinguer trois rôles de provenance : `origine`, `reference` et `decouverte`.
+
+**Pourquoi :**
+
+Ces trois informations décrivent des relations différentes avec le contenu :
+
+- `origine` → d'où provient le contenu ;
+- `reference` → où le contenu est cité, mentionné ou référencé ;
+- `decouverte` → comment l'utilisateur a personnellement découvert le contenu.
+
+Les trois rôles utilisent la même structure de données. Une même provenance peut remplir plusieurs rôles.
+
+**Structure commune :**
+
+- `type` ;
+- `source` ;
+- `titre` ;
+- `auteur` ;
+- `date` ;
+- `numero` ;
+- `lien`.
+
+Les trois provenances sont facultatives et peuvent être partiellement renseignées.
+- `createdAt` → quand ai-je capturé ce POI ?
+- `provenance.*.date` → quelle date est associée à cette source ?

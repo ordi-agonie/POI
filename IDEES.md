@@ -28,6 +28,8 @@ Ce fichier contient les idées potentielles pour un développement futur.
 - Localisation dans une source (page, timestamp, etc.)
 - Gestion plus précise des personnes associées à une source et de leurs rôles
 - Numéros de publication ou d'épisode lorsque leur usage le justifiera
+- Catalogue de références réutilisables entre plusieurs POI
+- Possibilité pour un POI de pointer vers une même référence avec plusieurs rôles (origine, référence, découverte)
 
 ### Données et technique
 

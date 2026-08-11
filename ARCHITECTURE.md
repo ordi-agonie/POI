@@ -50,8 +50,17 @@ POI
 ├── favori
 ├── raisonConservation
 ├── notes
-└── provenance ?
-    ├── principale ?
+└── provenance
+    ├── origine ?
+    │   ├── type
+    │   ├── source
+    │   ├── titre
+    │   ├── auteur
+    │   ├── date
+    │   ├── numero
+    │   └── lien
+    │
+    ├── reference ?
     │   ├── type
     │   ├── source
     │   ├── titre
@@ -68,3 +77,11 @@ POI
         ├── date
         ├── numero
         └── lien
+```
+Les trois catégories de provenance ont la même structure.
+
+- `origine` indique d'où provient le contenu conservé ;
+- `reference` indique une source qui mentionne, cite ou référence ce contenu ;
+- `decouverte` indique la source par laquelle l'utilisateur a personnellement découvert le contenu.
+
+Ces rôles sont indépendants. Une même source peut remplir plusieurs rôles.
