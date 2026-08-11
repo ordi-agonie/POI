@@ -11,6 +11,7 @@ const favoriPoi = document.getElementById("favori-poi");
 const listePoi = document.getElementById("liste-poi");
 const boutonEnregistrer = document.getElementById("enregistrer-poi");
 const boutonAnnuler = document.getElementById("annuler-poi");
+const notesPoi = document.getElementById("notes-poi");
 const pois = [];
 
 // --- Fonctions ---
@@ -21,13 +22,8 @@ function chargerPois() {
   if (donnees) {
     const poisSauvegardes = JSON.parse(donnees);
     pois.push(
-      ...poisSauvegardes.map((poi)=>({
-        ...poi,
-        statut: poi.statut ?? "a_classer",
-        favori: poi.favori ?? false,
-        raisonConservation: poi.raisonConservation ?? ""
-      }))
-    )
+      ...poisSauvegardes.map(normaliserPoi)
+    );
     afficherPois();
   }
 }
@@ -46,6 +42,7 @@ function enregistrerPoi() {
   
   const raisonConservation = raisonConservationPoi.value;
   const favori = favoriPoi.checked;
+  const notes = notesPoi.value;
 
   if (modeFormulaire === "modification") {
     const poi = pois.find((poi) => poi.id === poiEnCoursId);
@@ -57,6 +54,7 @@ function enregistrerPoi() {
     poi.contenu = texte;
     poi.raisonConservation = raisonConservation;
     poi.favori = favori;
+    poi.notes = notes;
   } else {
     const nouveauPoi = {
       id: Date.now(),
@@ -64,7 +62,9 @@ function enregistrerPoi() {
       createdAt: new Date(),
       statut: "a_classer",
       favori: favori,
-      raisonConservation: raisonConservation
+      raisonConservation: raisonConservation,
+      notes: notes,
+      provenance: null
     };
   
     pois.push(nouveauPoi);
@@ -129,6 +129,7 @@ function modifierPoi(id) {
   contenuPoi.value = poi.contenu;
   raisonConservationPoi.value = poi.raisonConservation;
   favoriPoi.checked = poi.favori;
+  notesPoi.value = poi.notes;
 
   contenuPoi.focus();
   formulaire.hidden = false;
@@ -139,10 +140,25 @@ function fermerFormulaire() {
   contenuPoi.value = "";
   raisonConservationPoi.value = "";
   favoriPoi.checked = false;
+  notesPoi.value = "";
+  
   formulaire.hidden = true;
 
   modeFormulaire = "creation";
   poiEnCoursId = null;
+}
+function normaliserPoi(poi) {
+  return {
+    ...poi,
+    statut: poi.statut ?? "a_classer",
+    favori: poi.favori ?? false,
+    raisonConservation: poi.raisonConservation ?? "",
+    notes: poi.notes ?? "",
+    provenance: {
+      principale: poi.provenance?.principale ?? null,
+      decouverte: poi.provenance?.decouverte ?? null
+    }
+  };
 }
 
 // --- Événements ---
