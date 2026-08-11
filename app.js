@@ -44,6 +44,12 @@ function enregistrerPoi() {
   const favori = favoriPoi.checked;
   const notes = notesPoi.value;
 
+  const origine = lireProvenance("origine");
+  const reference = lireProvenance("reference");
+  const decouverte = lireProvenance("decouverte");
+
+  
+
   if (modeFormulaire === "modification") {
     const poi = pois.find((poi) => poi.id === poiEnCoursId);
     
@@ -55,6 +61,12 @@ function enregistrerPoi() {
     poi.raisonConservation = raisonConservation;
     poi.favori = favori;
     poi.notes = notes;
+    poi.provenance = {
+      origine: origine,
+      reference: reference,
+      decouverte: decouverte
+    };
+    
   } else {
     const nouveauPoi = {
       id: Date.now(),
@@ -64,7 +76,11 @@ function enregistrerPoi() {
       favori: favori,
       raisonConservation: raisonConservation,
       notes: notes,
-      provenance: null
+      provenance: {
+        origine: origine,
+        reference: reference,
+        decouverte: decouverte
+      }
     };
   
     pois.push(nouveauPoi);
@@ -130,6 +146,9 @@ function modifierPoi(id) {
   raisonConservationPoi.value = poi.raisonConservation;
   favoriPoi.checked = poi.favori;
   notesPoi.value = poi.notes;
+  afficherProvenance("origine", poi.provenance?.origine);
+  afficherProvenance("reference", poi.provenance?.reference);
+  afficherProvenance("decouverte", poi.provenance?.decouverte);
 
   contenuPoi.focus();
   formulaire.hidden = false;
@@ -147,6 +166,7 @@ function fermerFormulaire() {
   modeFormulaire = "creation";
   poiEnCoursId = null;
 }
+
 function normaliserPoi(poi) {
   return {
     ...poi,
@@ -155,10 +175,39 @@ function normaliserPoi(poi) {
     raisonConservation: poi.raisonConservation ?? "",
     notes: poi.notes ?? "",
     provenance: {
-      principale: poi.provenance?.principale ?? null,
+      origine: poi.provenance?.origine
+        ?? poi.provenance?.principale
+        ?? null,
+      reference: poi.provenance?.reference ?? null,
       decouverte: poi.provenance?.decouverte ?? null
     }
   };
+}
+
+function lireProvenance(prefixe) {
+  const provenance = {
+    type: document.getElementById(`${prefixe}-type`).value.trim(),
+    source: document.getElementById(`${prefixe}-source`).value.trim(),
+    titre: document.getElementById(`${prefixe}-titre`).value.trim(),
+    auteur: document.getElementById(`${prefixe}-auteur`).value.trim(),
+    date: document.getElementById(`${prefixe}-date`).value.trim(),
+    numero: document.getElementById(`${prefixe}-numero`).value.trim(),
+    lien: document.getElementById(`${prefixe}-lien`).value.trim()
+  };
+
+  const estVide = Object.values(provenance).every((valeur) => valeur === "");
+
+  return estVide ? null : provenance;
+}
+
+function afficherProvenance(prefixe, provenance) {
+  document.getElementById(`${prefixe}-type`).value = provenance?.type ?? "";
+  document.getElementById(`${prefixe}-source`).value = provenance?.source ?? "";
+  document.getElementById(`${prefixe}-titre`).value = provenance?.titre ?? "";
+  document.getElementById(`${prefixe}-auteur`).value = provenance?.auteur ?? "";
+  document.getElementById(`${prefixe}-date`).value = provenance?.date ?? "";
+  document.getElementById(`${prefixe}-numero`).value = provenance?.numero ?? "";
+  document.getElementById(`${prefixe}-lien`).value = provenance?.lien ?? "";
 }
 
 // --- Événements ---
