@@ -43,8 +43,8 @@
         id="notes-poi"
         placeholder="Notes complémentaires (facultatif)">
       </textarea>
-      <fieldset>
-        <legend>Origine</legend>
+      <details id="origine-details">
+        <summary>Origine</summary>
 
         <input id="origine-type" placeholder="Type de source">
         <input id="origine-source" placeholder="Source">
@@ -53,10 +53,10 @@
         <input id="origine-date" placeholder="Date">
         <input id="origine-numero" placeholder="Numéro">
         <input id="origine-lien" placeholder="Lien">
-      </fieldset>
+      </details>
 
-      <fieldset>
-        <legend>Référence</legend>
+      <details id="reference-details">
+        <summary>Référence</summary>
 
         <input id="reference-type" placeholder="Type de source">
         <input id="reference-source" placeholder="Source">
@@ -65,10 +65,10 @@
         <input id="reference-date" placeholder="Date">
         <input id="reference-numero" placeholder="Numéro">
         <input id="reference-lien" placeholder="Lien">
-      </fieldset>
+      </details>
 
-      <fieldset>
-        <legend>Découverte</legend>
+      <details id="decouverte-details">
+        <summary>Découverte</summary>
 
         <input id="decouverte-type" placeholder="Type de source">
         <input id="decouverte-source" placeholder="Source">
@@ -77,7 +77,7 @@
         <input id="decouverte-date" placeholder="Date">
         <input id="decouverte-numero" placeholder="Numéro">
         <input id="decouverte-lien" placeholder="Lien">
-      </fieldset>
+      </details>
       <label>
         <input type="checkbox" id="favori-poi">
         Favori

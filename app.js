@@ -103,6 +103,35 @@ function afficherPois() {
     nouveauPoi.dataset.id = poi.id;
     nouveauPoi.classList.add("poi");
 
+    let provenanceHtml = "";
+
+    if (poi.provenance?.origine) {
+      provenanceHtml += `
+        <div class="poi-provenance">
+          <strong>Origine :</strong>
+          ${formaterProvenance(poi.provenance.origine)}
+        </div>
+      `;
+    }
+
+    if (poi.provenance?.reference) {
+      provenanceHtml += `
+        <div class="poi-provenance">
+          <strong>Référence :</strong>
+          ${formaterProvenance(poi.provenance.reference)}
+        </div>
+      `;
+    }
+
+    if (poi.provenance?.decouverte) {
+      provenanceHtml += `
+        <div class="poi-provenance">
+          <strong>Découverte :</strong>
+          ${formaterProvenance(poi.provenance.decouverte)}
+        </div>
+      `;
+    }
+
     nouveauPoi.innerHTML = `
       <p class="poi-contenu">${poi.contenu}</p>
       <small>${new Date(poi.createdAt).toLocaleString()}</small>
@@ -208,8 +237,26 @@ function afficherProvenance(prefixe, provenance) {
   document.getElementById(`${prefixe}-date`).value = provenance?.date ?? "";
   document.getElementById(`${prefixe}-numero`).value = provenance?.numero ?? "";
   document.getElementById(`${prefixe}-lien`).value = provenance?.lien ?? "";
+
+  const details = document.getElementById(`${prefixe}-details`);
+
+  if (details) {
+    details.open = provenance !== null && provenance !== undefined;
+  }
 }
 
+function formaterProvenance(provenance) {
+  const elements = [
+    provenance.source,
+    provenance.titre,
+    provenance.auteur,
+    provenance.date
+  ];
+
+  return elements
+    .filter((element) => element)
+    .join(" — ");
+}
 // --- Événements ---
 
 chargerPois();
