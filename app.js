@@ -103,42 +103,53 @@ function afficherPois() {
     nouveauPoi.dataset.id = poi.id;
     nouveauPoi.classList.add("poi");
 
-    let provenanceHtml = "";
+    const provenance = document.createElement("div");
+    provenance.classList.add("poi-provenance");
 
     if (poi.provenance?.origine) {
-      provenanceHtml += `
-        <div class="poi-provenance">
-          <strong>Origine :</strong>
-          ${formaterProvenance(poi.provenance.origine)}
-        </div>
-      `;
+      const origine = document.createElement("p");
+      origine.textContent =
+        `Origine : ${formaterProvenance(poi.provenance.origine)}`;
+      provenance.appendChild(origine);
     }
 
     if (poi.provenance?.reference) {
-      provenanceHtml += `
-        <div class="poi-provenance">
-          <strong>Référence :</strong>
-          ${formaterProvenance(poi.provenance.reference)}
-        </div>
-      `;
+      const reference = document.createElement("p");
+      reference.textContent =
+        `Référence : ${formaterProvenance(poi.provenance.reference)}`;
+      provenance.appendChild(reference);
     }
 
     if (poi.provenance?.decouverte) {
-      provenanceHtml += `
-        <div class="poi-provenance">
-          <strong>Découverte :</strong>
-          ${formaterProvenance(poi.provenance.decouverte)}
-        </div>
-      `;
+      const decouverte = document.createElement("p");
+      decouverte.textContent =
+        `Découverte : ${formaterProvenance(poi.provenance.decouverte)}`;
+      provenance.appendChild(decouverte);
     }
 
-    nouveauPoi.innerHTML = `
-      <p class="poi-contenu">${poi.contenu}</p>
-      ${provenanceHtml}
-      <small>${new Date(poi.createdAt).toLocaleString()}</small>
-      <button class="modifier-poi">Modifier</button>
-      <button class="supprimer-poi">Supprimer</button>
-    `;
+    if (provenance.children.length > 0) {
+      nouveauPoi.appendChild(provenance);
+    }
+
+    const contenu = document.createElement("p");
+    contenu.classList.add("poi-contenu");
+    contenu.textContent = poi.contenu;
+
+    const date = document.createElement("small");
+    date.textContent = new Date(poi.createdAt).toLocaleString();
+
+    const boutonModifier = document.createElement("button");
+    boutonModifier.classList.add("modifier-poi");
+    boutonModifier.textContent = "Modifier";
+
+    const boutonSupprimer = document.createElement("button");
+    boutonSupprimer.classList.add("supprimer-poi");
+    boutonSupprimer.textContent = "Supprimer";
+
+    nouveauPoi.appendChild(contenu);
+    nouveauPoi.appendChild(date);
+    nouveauPoi.appendChild(boutonModifier);
+    nouveauPoi.appendChild(boutonSupprimer);
 
 
     listePoi.appendChild(nouveauPoi);
