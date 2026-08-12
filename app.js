@@ -134,6 +134,7 @@ function afficherPois() {
 
     nouveauPoi.innerHTML = `
       <p class="poi-contenu">${poi.contenu}</p>
+      ${provenanceHtml}
       <small>${new Date(poi.createdAt).toLocaleString()}</small>
       <button class="modifier-poi">Modifier</button>
       <button class="supprimer-poi">Supprimer</button>
