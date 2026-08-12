@@ -40,6 +40,7 @@ Lorsqu'elle est disponible, la provenance peut être renseignée.
 Une provenance peut notamment comprendre :
 
 - un type de source ;
+- un format ;
 - une source ;
 - un titre ;
 - un auteur ;

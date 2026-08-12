@@ -148,3 +148,22 @@ Les trois rôles utilisent la même structure de données. Une même provenance 
 Les trois provenances sont facultatives et peuvent être partiellement renseignées.
 - `createdAt` → quand ai-je capturé ce POI ?
 - `provenance.*.date` → quelle date est associée à cette source ?
+
+## Distinguer le type et le format d'une provenance
+
+**Décision :** distinguer `type` et `format` dans une provenance.
+
+- `type` décrit la nature du contenu : article, livre, émission, vidéo, document, site, etc.
+- `format` décrit la forme sous laquelle le contenu est rencontré : texte, audio, vidéo, etc.
+
+**Pourquoi :**
+
+Une émission peut être audio ou vidéo. Une même émission peut également être découverte via une captation vidéo.
+
+Cette distinction évite de mélanger la nature éditoriale du contenu et son support.
+
+Exemples :
+
+- émission + audio ;
+- émission + vidéo ;
+- vidéo + vidéo.

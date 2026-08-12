@@ -53,6 +53,7 @@ POI
 └── provenance
     ├── origine ?
     │   ├── type
+    │   ├── format    
     │   ├── source
     │   ├── titre
     │   ├── auteur
@@ -62,6 +63,7 @@ POI
     │
     ├── reference ?
     │   ├── type
+    │   ├── format
     │   ├── source
     │   ├── titre
     │   ├── auteur
@@ -71,6 +73,7 @@ POI
     │
     └── decouverte ?
         ├── type
+        ├── format
         ├── source
         ├── titre
         ├── auteur
