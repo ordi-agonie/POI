@@ -216,18 +216,34 @@ function normaliserPoi(poi) {
     raisonConservation: poi.raisonConservation ?? "",
     notes: poi.notes ?? "",
     provenance: {
-      origine: poi.provenance?.origine
-        ?? poi.provenance?.principale
-        ?? null,
-      reference: poi.provenance?.reference ?? null,
-      decouverte: poi.provenance?.decouverte ?? null
+      origine: normaliserProvenance(poi.provenance?.origine),
+      reference: normaliserProvenance(poi.provenance?.reference),
+      decouverte: normaliserProvenance(poi.provenance?.decouverte)
     }
+  };
+}
+
+function normaliserProvenance(provenance) {
+  if (!provenance) {
+    return null;
+  }
+
+  return {
+    type: provenance.type ?? "",
+    format: provenance.format ?? "",
+    source: provenance.source ?? "",
+    titre: provenance.titre ?? "",
+    auteur: provenance.auteur ?? "",
+    date: provenance.date ?? "",
+    numero: provenance.numero ?? "",
+    lien: provenance.lien ?? ""
   };
 }
 
 function lireProvenance(prefixe) {
   const provenance = {
     type: document.getElementById(`${prefixe}-type`).value.trim(),
+    format: document.getElementById(`${prefixe}-format`).value,
     source: document.getElementById(`${prefixe}-source`).value.trim(),
     titre: document.getElementById(`${prefixe}-titre`).value.trim(),
     auteur: document.getElementById(`${prefixe}-auteur`).value.trim(),
@@ -243,6 +259,7 @@ function lireProvenance(prefixe) {
 
 function afficherProvenance(prefixe, provenance) {
   document.getElementById(`${prefixe}-type`).value = provenance?.type ?? "";
+  document.getElementById(`${prefixe}-format`).value = provenance?.format ?? "";
   document.getElementById(`${prefixe}-source`).value = provenance?.source ?? "";
   document.getElementById(`${prefixe}-titre`).value = provenance?.titre ?? "";
   document.getElementById(`${prefixe}-auteur`).value = provenance?.auteur ?? "";
