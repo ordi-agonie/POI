@@ -167,3 +167,16 @@ Exemples :
 - émission + audio ;
 - émission + vidéo ;
 - vidéo + vidéo.
+- 
+**Règle :**
+
+Le format est facultatif et n'est renseigné que lorsqu'il apporte une information supplémentaire par rapport au type.
+
+Par exemple :
+
+- `vidéo` → pas besoin de préciser `format: vidéo` ;
+- `article` → pas besoin de préciser `format: texte` ;
+- `émission` + `audio` → le format apporte une information ;
+- `émission` + `vidéo` → le format apporte une information.
+
+Cette règle évite de stocker des informations redondantes.
