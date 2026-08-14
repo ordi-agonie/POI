@@ -275,7 +275,13 @@ function afficherProvenance(prefixe, provenance) {
 }
 
 function formaterProvenance(provenance) {
+  if (!provenance) {
+    return "";
+  }
+
   const elements = [
+    `${obtenirIconeType(provenance.type)} ${provenance.type}`,
+    provenance.format,
     provenance.source,
     provenance.titre,
     provenance.auteur,
@@ -284,8 +290,22 @@ function formaterProvenance(provenance) {
 
   return elements
     .filter((element) => element)
-    .join(" — ");
+    .join(" · ");
 }
+
+function obtenirIconeType(type) {
+  const icones = {
+    article: "📰",
+    livre: "📖",
+    emission: "🎙️",
+    video: "🎬",
+    document: "📄",
+    site: "🌐"
+  };
+
+  return icones[type] ?? "🔗";
+}
+
 // --- Événements ---
 
 chargerPois();
