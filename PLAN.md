@@ -24,20 +24,18 @@
 - [x] Définir le favori
 - [x] Définir la raison de conservation
 - [x] Définir les notes complémentaires
-- [ ] Adapter le modèle JavaScript
-- [ ] Gérer la compatibilité avec les données existantes
-- [ ] Adapter le modèle JavaScript
-- [ ] Gérer la compatibilité avec les données existantes
-
+- [x] Adapter le modèle JavaScript
+- [x] Gérer la compatibilité avec les données existantes
+  
 Les thèmes, mots-clés, groupes et relations entre POI sont volontairement reportés après la V1.
 
 ## Étape 4 — Enrichissement et organisation
 
-- [ ] Favoris
-- [ ] À classer
-- [ ] Raison de conservation
-- [ ] Provenance
-- [ ] Notes complémentaires
+- [x] Favoris
+- [x] À classer
+- [x] Raison de conservation
+- [x] Provenance
+- [x] Notes complémentaires
 
 ## Étape 5 — Recherche
 
@@ -48,7 +46,6 @@ Les recherches par auteur, source, thème et mots-clés seront réévaluées apr
 ## Étape 6 — Découverte
 
 - [ ] Redécouverte des POI
-- [ ] Favoris
 
 L'affichage aléatoire pourra être ajouté si son utilité est confirmée par l'usage.
 
@@ -65,10 +62,10 @@ L'affichage aléatoire pourra être ajouté si son utilité est confirmée par l
 - [ ] Fonctionnement hors ligne
 - [ ] Vérification mobile
 
-## Après la V1
+## Après la Vx
 
 Réévaluer les besoins réels avant d'ajouter de nouvelles fonctionnalités.
 
 Ne pas ajouter de complexité sur la seule base d'une fonctionnalité envisagée.
 
-Les thèmes, mots-clés, groupes, relations entre POI, recherche sémantique et fonctionnalités d'IA restent des possibilités futures.
+Les thèmes, mots-clés, groupes et relations entre POI sont volontairement reportés et seront réévalués après observation des usages réels.

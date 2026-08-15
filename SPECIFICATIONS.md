@@ -35,7 +35,7 @@ Les informations complémentaires sont facultatives.
 
 ## Provenance
 
-Lorsqu'elle est disponible, la provenance peut être renseignée.
+Des informations de provenance peuvent être renseignées lorsqu'elles sont disponibles.
 
 Une provenance peut notamment comprendre :
 
@@ -48,10 +48,15 @@ Une provenance peut notamment comprendre :
 - un numéro de publication ou d'épisode ;
 - un lien.
 
+Le `format` est facultatif et n'est renseigné que lorsqu'il apporte une information supplémentaire par rapport au `type`.
+
 Un POI peut avoir :
 
-- une provenance principale ;
-- éventuellement une provenance de découverte lorsqu'elle est différente.
+- une provenance d'origine ;
+- une provenance de référence ;
+- une provenance de découverte.
+
+Ces trois rôles sont indépendants. Une même source peut remplir plusieurs rôles.
 
 Les informations de provenance sont facultatives et peuvent être partiellement renseignées.
 

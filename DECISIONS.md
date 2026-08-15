@@ -81,16 +81,6 @@ Les POI réels peuvent provenir de sources très différentes et les information
 
 Le modèle doit pouvoir conserver une provenance incomplète sans empêcher l'enregistrement du POI.
 
-## Distinguer la provenance principale de la provenance de découverte
-
-**Décision :** lorsqu'un contenu est découvert dans une source différente de sa source d'origine, les deux provenances peuvent être distinguées.
-
-**Pourquoi :**
-
-Un article peut par exemple citer un livre, une personne ou un article antérieur. Confondre la source qui contient le contenu et la source dans laquelle l'utilisateur l'a découvert ferait perdre une information utile.
-
-La provenance de découverte reste facultative et n'est utilisée que lorsqu'elle apporte une information réelle.
-
 ## Conserver une zone de notes non structurées
 
 **Décision :** un POI peut contenir des notes complémentaires destinées aux informations qui ne disposent pas encore d'un champ structuré.
@@ -148,6 +138,15 @@ Les trois rôles utilisent la même structure de données. Une même provenance 
 Les trois provenances sont facultatives et peuvent être partiellement renseignées.
 - `createdAt` → quand ai-je capturé ce POI ?
 - `provenance.*.date` → quelle date est associée à cette source ?
+
+Le format est facultatif et n'est renseigné que lorsqu'il apporte une information supplémentaire par rapport au type.
+
+Par exemple :
+
+- `vidéo` → pas besoin de préciser `format: vidéo` ;
+- `article` → pas besoin de préciser `format: texte` ;
+- `émission` + `audio` → le format apporte une information ;
+- `émission` + `vidéo` → le format apporte une information.
 
 ## Distinguer le type et le format d'une provenance
 
