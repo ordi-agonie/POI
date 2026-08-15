@@ -103,40 +103,42 @@ function afficherPois() {
     nouveauPoi.dataset.id = poi.id;
     nouveauPoi.classList.add("poi");
 
-    const provenance = document.createElement("div");
-    provenance.classList.add("poi-provenance");
-
-    if (poi.provenance?.origine) {
-      const origine = document.createElement("p");
-      origine.textContent =
-        `Origine : ${formaterProvenance(poi.provenance.origine)}`;
-      provenance.appendChild(origine);
-    }
-
-    if (poi.provenance?.reference) {
-      const reference = document.createElement("p");
-      reference.textContent =
-        `Référence : ${formaterProvenance(poi.provenance.reference)}`;
-      provenance.appendChild(reference);
-    }
-
-    if (poi.provenance?.decouverte) {
-      const decouverte = document.createElement("p");
-      decouverte.textContent =
-        `Découverte : ${formaterProvenance(poi.provenance.decouverte)}`;
-      provenance.appendChild(decouverte);
-    }
-
-    if (provenance.children.length > 0) {
-      nouveauPoi.appendChild(provenance);
-    }
-
     const contenu = document.createElement("p");
     contenu.classList.add("poi-contenu");
     contenu.textContent = poi.contenu;
 
     const date = document.createElement("small");
     date.textContent = new Date(poi.createdAt).toLocaleString();
+
+    const provenance = document.createElement("div");
+    provenance.classList.add("poi-provenance");
+
+    if (poi.provenance?.origine) {
+      const origine = document.createElement("p");
+
+      origine.textContent =
+        `Origine : ${formaterProvenance(poi.provenance.origine)}`;
+
+      provenance.appendChild(origine);
+    }
+
+    if (poi.provenance?.reference) {
+      const reference = document.createElement("p");
+
+      reference.textContent =
+        `Référence : ${formaterProvenance(poi.provenance.reference)}`;
+
+      provenance.appendChild(reference);
+    }
+
+    if (poi.provenance?.decouverte) {
+      const decouverte = document.createElement("p");
+
+      decouverte.textContent =
+        `Découverte : ${formaterProvenance(poi.provenance.decouverte)}`;
+
+      provenance.appendChild(decouverte);
+    }
 
     const boutonModifier = document.createElement("button");
     boutonModifier.classList.add("modifier-poi");
@@ -148,9 +150,13 @@ function afficherPois() {
 
     nouveauPoi.appendChild(contenu);
     nouveauPoi.appendChild(date);
+
+    if (provenance.children.length > 0) {
+      nouveauPoi.appendChild(provenance);
+    }
+
     nouveauPoi.appendChild(boutonModifier);
     nouveauPoi.appendChild(boutonSupprimer);
-
 
     listePoi.appendChild(nouveauPoi);
   });
