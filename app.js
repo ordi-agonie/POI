@@ -108,6 +108,7 @@ function afficherPois() {
     contenu.textContent = poi.contenu;
 
     const date = document.createElement("small");
+    date.classList.add("poi-meta");
     date.textContent = new Date(poi.createdAt).toLocaleString();
 
     const provenance = document.createElement("div");
