@@ -45,9 +45,10 @@ Les recherches par auteur, source, thème et mots-clés seront réévaluées apr
 
 ## Étape 6 — Découverte
 
-- [ ] Redécouverte des POI
+- [x] POI du jour
+- [x] Parcours aléatoire
 
-L'affichage aléatoire pourra être ajouté si son utilité est confirmée par l'usage.
+Les mécanismes de redécouverte par thèmes ou selon d'autres critères sont volontairement reportés après la V1.
 
 ## Étape 7 — Import / export
 

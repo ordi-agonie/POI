@@ -1,5 +1,7 @@
 let modeFormulaire = "creation";
 let poiEnCoursId = null;
+let poiParcoursId = null;
+
 
 // --- Éléments HTML ---
 
@@ -13,6 +15,9 @@ const boutonEnregistrer = document.getElementById("enregistrer-poi");
 const boutonAnnuler = document.getElementById("annuler-poi");
 const notesPoi = document.getElementById("notes-poi");
 const recherchePoi = document.getElementById("recherche-poi");
+const poiDuJourContenu = document.getElementById("poi-du-jour-contenu");
+const parcoursPoiContenu = document.getElementById("parcours-poi-contenu");
+const boutonSuivantPoi = document.getElementById("suivant-poi");
 const pois = [];
 
 // --- Fonctions ---
@@ -181,9 +186,16 @@ function supprimerPoi(id) {
   }
   
   pois.splice(index, 1);
+  const idPoiDuJour = localStorage.getItem("poiDuJourId");
+
+  if (idPoiDuJour === String(id)) {
+    localStorage.removeItem("poiDuJourDate");
+    localStorage.removeItem("poiDuJourId");
+  }
 
   sauvegarderPois();
   afficherPois();
+  afficherPoiDuJour();
 }
 
 function modifierPoi(id) {
@@ -334,10 +346,84 @@ function filtrerPois() {
   afficherPois(poisFiltres);
 }
 
+function afficherPoiDuJour() {
+  const poi = obtenirPoiDuJour();
+
+  if (poi === null) {
+    poiDuJourContenu.textContent = "Aucun POI disponible.";
+    return;
+  }
+  poiDuJourContenu.textContent = poi.contenu;
+}
+
+function choisirPoiAleatoire() {
+  if (pois.length === 0) {
+    return null;
+  }
+  const index = Math.floor(Math.random() * pois.length);
+  return pois[index];
+}
+
+function obtenirDateDuJour() {
+  return new Date().toLocaleDateString("fr-BE");
+}
+
+function obtenirPoiDuJour() {
+  const dateDuJour = obtenirDateDuJour();
+  const dateEnregistree = localStorage.getItem("poiDuJourDate");
+  const idEnregistre = localStorage.getItem("poiDuJourId");
+
+  if (dateEnregistree === dateDuJour && idEnregistre !== null) {
+    return pois.find((poi) => poi.id === Number(idEnregistre)) ?? null;
+  }
+
+  const poi = choisirPoiAleatoire();
+
+  if (poi === null) {
+    return null;
+  }
+
+  localStorage.setItem("poiDuJourDate", dateDuJour);
+  localStorage.setItem("poiDuJourId", String(poi.id));
+
+  return poi;
+}
+
+function choisirPoiParcours() {
+  if (pois.length === 0) {
+    return null;
+  }
+
+  if (pois.length === 1) {
+    return pois[0];
+  }
+
+  let poi;
+
+  do {
+    poi = choisirPoiAleatoire();
+  } while (poi.id === poiParcoursId);
+
+  return poi;
+}
+
+function afficherPoiParcours() {
+  const poi = choisirPoiParcours();
+
+  if (poi === null) {
+    parcoursPoiContenu.textContent = "Aucun POI disponible.";
+    return;
+  }
+
+  poiParcoursId = poi.id;
+  parcoursPoiContenu.textContent = poi.contenu;
+}
+
 // --- Événements ---
 
 chargerPois();
-afficherPois();
+afficherPoiDuJour();
+afficherPoiParcours();
 
 bouton.addEventListener("click",ouvrirFormulaire);
 boutonEnregistrer.addEventListener("click", enregistrerPoi);
@@ -360,3 +446,4 @@ listePoi.addEventListener("click", (event) => {
   }
 });
 recherchePoi.addEventListener("input", filtrerPois);
+boutonSuivantPoi.addEventListener("click", afficherPoiParcours);
