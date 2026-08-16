@@ -67,3 +67,16 @@ main {
 .poi-provenance p {
     margin: 4px 0;
 }
+
+#exporter-pois {
+    margin-top: 20px;
+}
+
+#suivant-poi {
+    margin-top: 12px;
+}
+
+#parcours-poi,
+#poi-du-jour {
+    margin-bottom: 20px;
+}

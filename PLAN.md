@@ -52,9 +52,10 @@ Les mécanismes de redécouverte par thèmes ou selon d'autres critères sont vo
 
 ## Étape 7 — Import / export
 
-- [ ] Export JSON
+- [x] Export JSON
 - [ ] Import JSON
 - [ ] Validation des données importées
+- [ ] Compatibilité avec les versions précédentes du modèle
 
 ## Étape 8 — PWA
 

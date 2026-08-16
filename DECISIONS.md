@@ -118,3 +118,22 @@ Aucun enchaînement automatique de POI n'est prévu.
 La redécouverte doit favoriser la rencontre d'idées oubliées sans transformer l'application en flux de contenu à consommer continuellement.
 
 Les mécanismes de sélection par thèmes ou autres critères sont volontairement reportés.
+
+## Faire évoluer le format des données sans perte d'information
+
+**Décision :** les nouvelles versions du modèle doivent rester compatibles avec les données enregistrées dans les versions précédentes lorsque cela est possible.
+
+Lorsqu'un champ est ajouté :
+- les anciennes données qui ne possèdent pas ce champ sont complétées par une valeur par défaut ;
+- les données existantes ne sont pas supprimées ;
+- les champs supplémentaires présents dans un ancien export ne doivent pas être supprimés sans décision explicite.
+
+Lorsqu'un champ existant change de structure ou de signification :
+- une migration explicite doit être envisagée ;
+- la transformation ne doit pas être effectuée silencieusement si elle risque d'entraîner une perte d'information.
+
+**Pourquoi :**
+
+Les données des POI appartiennent à l'utilisateur. L'évolution du modèle ne doit donc pas rendre inutilisables les exports réalisés avec une version antérieure de l'application.
+
+La fonction de normalisation constitue le mécanisme initial permettant de compléter les champs manquants lors du chargement ou de l'import.

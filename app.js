@@ -18,6 +18,8 @@ const recherchePoi = document.getElementById("recherche-poi");
 const poiDuJourContenu = document.getElementById("poi-du-jour-contenu");
 const parcoursPoiContenu = document.getElementById("parcours-poi-contenu");
 const boutonSuivantPoi = document.getElementById("suivant-poi");
+const boutonExporter = document.getElementById("exporter-pois");
+const importeurPois = document.getElementById("importer-pois");
 const pois = [];
 
 // --- Fonctions ---
@@ -178,6 +180,21 @@ function sauvegarderPois() {
   localStorage.setItem("pois", JSON.stringify(pois));
 }
 
+function exporterPois() {
+  const donnees = JSON.stringify(pois, null, 2);
+
+  const fichier = new Blob([donnees], {
+    type: "application/json"
+  });
+
+  const lien = document.createElement("a");
+  lien.href = URL.createObjectURL(fichier);
+  lien.download = "pois.json";
+  lien.click();
+
+  URL.revokeObjectURL(lien.href);
+}
+
 function supprimerPoi(id) {
   const index = pois.findIndex((poi) => poi.id === id);
 
@@ -246,6 +263,21 @@ function normaliserPoi(poi) {
       decouverte: normaliserProvenance(poi.provenance?.decouverte)
     }
   };
+}
+
+function fusionnerPois(poisImportes) {
+  const idsExistants = new Set(
+    pois.map((poi) => poi.id)
+  );
+
+  for (const poi of poisImportes) {
+    if (idsExistants.has(poi.id)) {
+      continue;
+    }
+
+    pois.push(poi);
+    idsExistants.add(poi.id);
+  }
 }
 
 function normaliserProvenance(provenance) {
@@ -419,6 +451,57 @@ function afficherPoiParcours() {
   parcoursPoiContenu.textContent = poi.contenu;
 }
 
+function lireFichierImport(event) {
+  const fichier = event.target.files[0];
+
+  if (!fichier) {
+    return;
+  }
+
+  const lecteur = new FileReader();
+
+  lecteur.addEventListener("load", () => {
+    try {
+      const donnees = JSON.parse(lecteur.result);
+      if (!Array.isArray(donnees)) {
+        console.error("Le fichier ne contient pas un tableau de POI.");
+        return;
+      }
+
+      for (const poi of donnees) {
+        if (
+          typeof poi !== "object" ||
+          poi === null ||
+          poi.id === undefined ||
+          typeof poi.contenu !== "string"
+        ) {
+          console.error("Le fichier contient un POI invalide :", poi);
+          return;
+        }
+      }
+
+      const poisImportes = donnees.map(normaliserPoi);
+
+      fusionnerPois(poisImportes);
+      sauvegarderPois();
+      afficherPois();
+      afficherPoiDuJour();
+      afficherPoiParcours();
+
+      console.log(pois);
+
+      console.log(poisImportes);
+
+      console.log(donnees);
+    } catch (erreur) {
+      console.error("JSON invalide :", erreur);
+    }
+
+  });
+
+  lecteur.readAsText(fichier);
+}
+
 // --- Événements ---
 
 chargerPois();
@@ -447,3 +530,6 @@ listePoi.addEventListener("click", (event) => {
 });
 recherchePoi.addEventListener("input", filtrerPois);
 boutonSuivantPoi.addEventListener("click", afficherPoiParcours);
+boutonExporter.addEventListener("click", exporterPois);
+importeurPois.addEventListener("change", lireFichierImport);
+
