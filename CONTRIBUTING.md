@@ -17,6 +17,17 @@ Avant un commit :
 - tester le comportement concerné ;
 - vérifier que la documentation est cohérente avec le code.
 
+Lorsqu'une modification de code est proposée :
+- expliquer les nouvelles fonctions introduites ;
+- expliquer les nouvelles syntaxes ou constructions de programmation utilisées lorsqu'elles n'ont pas encore été vues ;
+- expliquer les nouveaux concepts de programmation nécessaires à la compréhension du code ;
+- indiquer le comportement attendu et le test à effectuer avant de poursuivre.
+
+Lorsqu'un fichier Markdown complet est fourni pour être copié-collé :
+- fournir le fichier complet dans un bloc de code ;
+- utiliser un délimiteur extérieur suffisamment long pour ne pas interrompre les éventuels blocs de code présents dans le fichier ;
+- conserver le contenu Markdown interne tel quel.
+  
 ## Documentation
 
 - `Architecture.md` décrit comment le système est construit.

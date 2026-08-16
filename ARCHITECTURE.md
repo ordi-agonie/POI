@@ -2,7 +2,7 @@
 
 ## Objectif technique
 
-Créer une application personnelle simple, durable et utilisable principalement sur smartphone Android.
+Créer une application personnelle simple, durable et principalement utilisable sur smartphone Android.
 
 ## Principes techniques
 
@@ -10,18 +10,17 @@ Créer une application personnelle simple, durable et utilisable principalement 
 - Éviter les dépendances inutiles.
 - Garder les données sous le contrôle de l'utilisateur.
 - Construire progressivement selon les besoins réels.
-- Ne pas introduire prématurément une complexité destinée à des fonctionnalités hypothétiques.
+- Ne pas introduire prématurément de complexité pour des fonctionnalités hypothétiques.
 
 ## Plateforme
 
-L'application est développée comme une Progressive Web App (PWA).
+POI est développé comme une Progressive Web App (PWA).
 
-Ce choix permet notamment :
+La plateforme repose sur des technologies web standards et doit permettre :
 
-- une utilisation depuis un navigateur ;
-- une installation sur Android ;
-- un fonctionnement hors ligne ;
-- l'utilisation de technologies web standards.
+- l'utilisation depuis un navigateur ;
+- l'installation sur Android ;
+- le fonctionnement hors ligne.
 
 ## Données
 
@@ -29,17 +28,15 @@ Les données utilisateur sont stockées localement sur l'appareil.
 
 Le stockage initial utilise `localStorage`.
 
-Les données doivent rester exportables afin de conserver le contrôle de l'utilisateur sur celles-ci.
-
 Les POI sont représentés comme des objets JavaScript dans une collection en mémoire. L'interface est générée à partir de ces données.
+
+Les données doivent rester indépendantes de leur représentation HTML afin de permettre leur évolution et leur exportation.
 
 ## Modèle d'un POI
 
 Un POI représente une unité de contenu que l'utilisateur souhaite conserver.
 
-Le contenu est la seule information obligatoire. Les autres informations peuvent être ajoutées ou complétées ultérieurement.
-
-Structure conceptuelle actuelle :
+Structure actuelle :
 
 ```text
 POI
@@ -52,39 +49,30 @@ POI
 ├── notes
 └── provenance
     ├── origine ?
-    │   ├── type
-    │   ├── format    
-    │   ├── source
-    │   ├── titre
-    │   ├── auteur
-    │   ├── date
-    │   ├── numero
-    │   └── lien
-    │
     ├── reference ?
-    │   ├── type
-    │   ├── format
-    │   ├── source
-    │   ├── titre
-    │   ├── auteur
-    │   ├── date
-    │   ├── numero
-    │   └── lien
-    │
     └── decouverte ?
-        ├── type
-        ├── format
-        ├── source
-        ├── titre
-        ├── auteur
-        ├── date
-        ├── numero
-        └── lien
 ```
-Les trois catégories de provenance ont la même structure.
 
-- `origine` indique d'où provient le contenu conservé ;
-- `reference` indique une source qui mentionne, cite ou référence ce contenu ;
-- `decouverte` indique la source par laquelle l'utilisateur a personnellement découvert le contenu.
+Le contenu est la seule information obligatoire.
 
-Ces rôles sont indépendants. Une même source peut remplir plusieurs rôles.
+## Provenance
+
+Chaque provenance est facultative et peut être partiellement renseignée.
+Les trois rôles utilisent la même structure :
+
+```text
+ provenance
+├── type
+├── format
+├── source
+├── titre
+├── auteur
+├── date
+├── numero
+└── lien
+```
+Les rôles sont :
+`origine` : source d'origine du contenu ;
+`reference` : source qui mentionne, cite ou référence le contenu ;
+`decouverte` : source par laquelle l'utilisateur a découvert le contenu.
+Une même source peut remplir plusieurs rôles.

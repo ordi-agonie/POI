@@ -12,6 +12,7 @@ const listePoi = document.getElementById("liste-poi");
 const boutonEnregistrer = document.getElementById("enregistrer-poi");
 const boutonAnnuler = document.getElementById("annuler-poi");
 const notesPoi = document.getElementById("notes-poi");
+const recherchePoi = document.getElementById("recherche-poi");
 const pois = [];
 
 // --- Fonctions ---
@@ -94,10 +95,15 @@ function annulerFormulaire() {
   fermerFormulaire();
 }
 
-function afficherPois() {
+function afficherPois(liste = pois) {
   listePoi.innerHTML = "";
+ 
+  if (liste.length === 0) {
+    listePoi.textContent = "Aucun résultat.";
+    return;
+  }
 
-  pois.forEach((poi) => {
+  liste.forEach((poi) => {
     const nouveauPoi = document.createElement("article");
 
     nouveauPoi.dataset.id = poi.id;
@@ -313,6 +319,21 @@ function obtenirIconeType(type) {
   return icones[type] ?? "🔗";
 }
 
+function filtrerPois() {
+  const recherche = recherchePoi.value.trim().toLowerCase();
+
+  if (recherche === "") {
+    afficherPois();
+    return;
+  }
+
+  const poisFiltres = pois.filter((poi) =>
+    poi.contenu.toLowerCase().includes(recherche)
+  );
+
+  afficherPois(poisFiltres);
+}
+
 // --- Événements ---
 
 chargerPois();
@@ -338,3 +359,4 @@ listePoi.addEventListener("click", (event) => {
     modifierPoi(id);
   }
 });
+recherchePoi.addEventListener("input", filtrerPois);

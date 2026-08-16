@@ -2,29 +2,27 @@
 
 ## Utiliser une PWA
 
-**Décision :** développer l'application comme une Progressive Web App.
+**Décision :** développer POI comme une Progressive Web App.
 
 **Pourquoi :**
-
 - utilisation depuis un navigateur ;
 - installation possible sur Android ;
 - technologies web standards ;
-- possibilité d'ajouter progressivement des capacités hors ligne.
+- possibilité d'ajouter progressivement le fonctionnement hors ligne.
 
 ## Stocker initialement les données en local
 
 **Décision :** utiliser `localStorage` pour le stockage initial des POI.
 
 **Pourquoi :**
-
 - simplicité ;
-- aucune infrastructure serveur nécessaire ;
+- aucune infrastructure serveur ;
 - données conservées sur l'appareil ;
 - adapté au stade actuel du projet.
 
-**Limite connue :**
+**Limite :**
 
-`localStorage` n'est pas conçu pour une synchronisation entre appareils ni pour un stockage complexe. Une évolution pourra être envisagée si le besoin apparaît.
+`localStorage` ne convient pas à la synchronisation entre appareils ni aux besoins de stockage complexes. Une évolution pourra être envisagée si un besoin réel apparaît.
 
 ## Séparer les données de l'affichage
 
@@ -32,7 +30,7 @@
 
 **Pourquoi :**
 
-Cela permet de modifier, supprimer, sauvegarder ou exporter les POI sans faire dépendre directement les données de leur représentation HTML.
+Les données peuvent ainsi être modifiées, supprimées, sauvegardées ou exportées indépendamment de leur représentation HTML.
 
 ## Donner un identifiant aux POI
 
@@ -42,32 +40,30 @@ Cela permet de modifier, supprimer, sauvegarder ou exporter les POI sans faire d
 
 Les opérations de modification et de suppression doivent pouvoir cibler précisément un POI indépendamment de sa position dans la liste.
 
-## Conserver uniquement le contenu comme information obligatoire
+## Ne rendre que le contenu obligatoire
 
-**Décision :** aucune métadonnée n'est obligatoire lors de la capture d'un POI.
-
-**Pourquoi :**
-
-L'ajout doit rester suffisamment rapide pour permettre une capture spontanée. Les informations complémentaires peuvent être renseignées plus tard.
-
-## Distinguer la date de création de la date de provenance
-
-**Décision :** conserver séparément la date de création du POI et la date associée à sa provenance.
+**Décision :** le contenu est la seule information obligatoire lors de la création d'un POI.
 
 **Pourquoi :**
 
-Ces dates répondent à deux questions différentes :
-
-- `createdAt` → quand ai-je capturé ce POI ?
-- `provenance.date` → quand la source a-t-elle été publiée ou diffusée ?
+La capture doit rester suffisamment rapide pour permettre une saisie spontanée. Les informations complémentaires peuvent être ajoutées plus tard.
 
 ## Utiliser une provenance facultative et partielle
 
-**Décision :** un POI peut comporter une ou plusieurs informations de provenance, sans que celles-ci soient obligatoires ni nécessairement complètes.
+**Décision :** les informations de provenance sont facultatives et peuvent être incomplètes.
 
-Une provenance peut notamment contenir :
+Un POI peut distinguer trois rôles :
+
+- `origine` ;
+- `reference` ;
+- `decouverte`.
+
+Ces rôles sont indépendants et une même source peut remplir plusieurs rôles.
+
+Chaque provenance peut contenir :
 
 - `type` ;
+- `format` ;
 - `source` ;
 - `titre` ;
 - `auteur` ;
@@ -77,19 +73,28 @@ Une provenance peut notamment contenir :
 
 **Pourquoi :**
 
-Les POI réels peuvent provenir de sources très différentes et les informations disponibles au moment de la capture sont variables.
+Les POI peuvent provenir de sources très différentes et les informations disponibles peuvent varier. Le modèle doit permettre de conserver une provenance partielle sans empêcher l'enregistrement.
 
-Le modèle doit pouvoir conserver une provenance incomplète sans empêcher l'enregistrement du POI.
+## Distinguer le type et le format
 
-## Conserver une zone de notes non structurées
+**Décision :** `type` et `format` représentent deux informations différentes.
 
-**Décision :** un POI peut contenir des notes complémentaires destinées aux informations qui ne disposent pas encore d'un champ structuré.
+- `type` décrit la nature du contenu : article, livre, émission, vidéo, etc. ;
+- `format` décrit la forme sous laquelle il est rencontré : texte, audio, vidéo, etc.
+
+Le `format` est facultatif et n'est conservé que lorsqu'il apporte une information supplémentaire.
 
 **Pourquoi :**
 
-Il est préférable de conserver une information imparfaitement structurée plutôt que de la perdre ou de créer prématurément un champ spécifique.
+Une émission peut par exemple être rencontrée sous forme audio ou vidéo. Cette distinction évite de confondre la nature d'une source avec son support.
 
-Le champ `notes` pourra être progressivement remplacé ou complété par des champs dédiés lorsque les usages réels justifieront cette évolution.
+## Conserver les informations non encore structurées dans les notes
+
+**Décision :** utiliser `notes` pour les informations qui ne disposent pas encore d'un champ structuré.
+
+**Pourquoi :**
+
+Cela permet de conserver l'information sans créer prématurément une structure dédiée.
 
 ## Ne pas sur-structurer le modèle
 
@@ -97,85 +102,19 @@ Le champ `notes` pourra être progressivement remplacé ou complété par des ch
 
 **Pourquoi :**
 
-Le modèle doit évoluer à partir des usages réels des POI.
+Le modèle doit évoluer à partir des usages réels plutôt qu'à partir de besoins supposés.
 
-Les thèmes, mots-clés, groupes, relations entre POI, bibliographie détaillée, localisation précise dans une source et autres métadonnées spécialisées pourront être ajoutés ultérieurement si leur utilité est démontrée.
+## Redécouvrir les POI de manière contrôlée
 
-## Privilégier la conservation de l'information à sa normalisation immédiate
+**Décision :** la V1 propose une redécouverte aléatoire sous deux formes :
 
-**Décision :** lorsqu'une information ne trouve pas encore naturellement sa place dans le modèle, elle doit pouvoir être conservée sans être perdue, notamment dans `notes`.
+- un **POI du jour**, choisi aléatoirement une fois par jour calendaire ;
+- un **parcours aléatoire**, dans lequel un seul POI est présenté à la fois et où l'utilisateur demande explicitement le suivant.
 
-**Pourquoi :**
-
-Le modèle est encore expérimental. Une normalisation trop précoce risquerait de conduire à des migrations répétées et à une complexité inutile.
-
-Les données réelles serviront de base aux futures évolutions du modèle.
-
-## Distinguer origine, référence et découverte
-
-**Décision :** distinguer trois rôles de provenance : `origine`, `reference` et `decouverte`.
+Aucun enchaînement automatique de POI n'est prévu.
 
 **Pourquoi :**
 
-Ces trois informations décrivent des relations différentes avec le contenu :
+La redécouverte doit favoriser la rencontre d'idées oubliées sans transformer l'application en flux de contenu à consommer continuellement.
 
-- `origine` → d'où provient le contenu ;
-- `reference` → où le contenu est cité, mentionné ou référencé ;
-- `decouverte` → comment l'utilisateur a personnellement découvert le contenu.
-
-Les trois rôles utilisent la même structure de données. Une même provenance peut remplir plusieurs rôles.
-
-**Structure commune :**
-
-- `type` ;
-- `source` ;
-- `titre` ;
-- `auteur` ;
-- `date` ;
-- `numero` ;
-- `lien`.
-
-Les trois provenances sont facultatives et peuvent être partiellement renseignées.
-- `createdAt` → quand ai-je capturé ce POI ?
-- `provenance.*.date` → quelle date est associée à cette source ?
-
-Le format est facultatif et n'est renseigné que lorsqu'il apporte une information supplémentaire par rapport au type.
-
-Par exemple :
-
-- `vidéo` → pas besoin de préciser `format: vidéo` ;
-- `article` → pas besoin de préciser `format: texte` ;
-- `émission` + `audio` → le format apporte une information ;
-- `émission` + `vidéo` → le format apporte une information.
-
-## Distinguer le type et le format d'une provenance
-
-**Décision :** distinguer `type` et `format` dans une provenance.
-
-- `type` décrit la nature du contenu : article, livre, émission, vidéo, document, site, etc.
-- `format` décrit la forme sous laquelle le contenu est rencontré : texte, audio, vidéo, etc.
-
-**Pourquoi :**
-
-Une émission peut être audio ou vidéo. Une même émission peut également être découverte via une captation vidéo.
-
-Cette distinction évite de mélanger la nature éditoriale du contenu et son support.
-
-Exemples :
-
-- émission + audio ;
-- émission + vidéo ;
-- vidéo + vidéo.
-- 
-**Règle :**
-
-Le format est facultatif et n'est renseigné que lorsqu'il apporte une information supplémentaire par rapport au type.
-
-Par exemple :
-
-- `vidéo` → pas besoin de préciser `format: vidéo` ;
-- `article` → pas besoin de préciser `format: texte` ;
-- `émission` + `audio` → le format apporte une information ;
-- `émission` + `vidéo` → le format apporte une information.
-
-Cette règle évite de stocker des informations redondantes.
+Les mécanismes de sélection par thèmes ou autres critères sont volontairement reportés.

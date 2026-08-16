@@ -39,7 +39,7 @@ Les thèmes, mots-clés, groupes et relations entre POI sont volontairement repo
 
 ## Étape 5 — Recherche
 
-- [ ] Recherche plein texte
+- [x] Recherche plein texte
 
 Les recherches par auteur, source, thème et mots-clés seront réévaluées après observation des usages réels.
 
@@ -62,7 +62,7 @@ L'affichage aléatoire pourra être ajouté si son utilité est confirmée par l
 - [ ] Fonctionnement hors ligne
 - [ ] Vérification mobile
 
-## Après la Vx
+## Après la V1
 
 Réévaluer les besoins réels avant d'ajouter de nouvelles fonctionnalités.
 
