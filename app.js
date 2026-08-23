@@ -181,7 +181,12 @@ function sauvegarderPois() {
 }
 
 function exporterPois() {
-  const donnees = JSON.stringify(pois, null, 2);
+  const donnees = {
+    version: 1,
+    pois: pois
+  };
+    
+  const texte = JSON.stringify(donnees, null, 2);
 
   const fichier = new Blob([donnees], {
     type: "application/json"
@@ -463,12 +468,22 @@ function lireFichierImport(event) {
   lecteur.addEventListener("load", () => {
     try {
       const donnees = JSON.parse(lecteur.result);
-      if (!Array.isArray(donnees)) {
-        console.error("Le fichier ne contient pas un tableau de POI.");
+
+      let poisImportesBruts;
+
+      if (Array.isArray(donnees)) {
+        poisImportesBruts = donnees;
+      } else if (
+        donnees.version === 1 &&
+        Array.isArray(donnees.pois)
+      ) {
+        poisImportesBruts = donnees.pois;
+      } else {
+        console.error("Format d'import inconnu.");
         return;
       }
 
-      for (const poi of donnees) {
+      for (const poi of poisImportesBruts) {
         if (
           typeof poi !== "object" ||
           poi === null ||
@@ -480,7 +495,7 @@ function lireFichierImport(event) {
         }
       }
 
-      const poisImportes = donnees.map(normaliserPoi);
+      const poisImportes = poisImportesBruts.map(normaliserPoi);
 
       fusionnerPois(poisImportes);
       sauvegarderPois();

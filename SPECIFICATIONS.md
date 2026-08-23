@@ -107,5 +107,7 @@ Les mécanismes de redécouverte par thèmes ou selon d'autres critères ne font
 ## Données
 
 - Les données sont stockées localement.
-- Les données doivent rester exportables.
+- Les données peuvent être exportées au format JSON.
+- Les données peuvent être importées depuis un fichier JSON.
+- L'import accepte les exports des versions précédentes lorsqu'ils sont compatibles avec le modèle actuel.
 - L'évolution du format ne doit pas entraîner de perte d'information.

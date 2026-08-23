@@ -137,3 +137,22 @@ Lorsqu'un champ existant change de structure ou de signification :
 Les données des POI appartiennent à l'utilisateur. L'évolution du modèle ne doit donc pas rendre inutilisables les exports réalisés avec une version antérieure de l'application.
 
 La fonction de normalisation constitue le mécanisme initial permettant de compléter les champs manquants lors du chargement ou de l'import.
+
+## Versionner le format d'export
+
+**Décision :** les exports JSON utilisent un objet racine contenant un numéro de version et les POI.
+
+Structure actuelle :
+
+```json
+{
+  "version": 1,
+  "pois": []
+}
+```
+
+Les anciens exports contenant directement un tableau de POI restent acceptés à l'import.
+
+**Pourquoi :**
+
+Le numéro de version permettra de faire évoluer le format des données sans casser les anciens exports ni perdre d'information lors des futures migrations.
