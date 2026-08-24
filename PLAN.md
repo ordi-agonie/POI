@@ -59,7 +59,7 @@ Les mécanismes de redécouverte par thèmes ou selon d'autres critères sont vo
 
 ## Étape 8 — PWA
 
-- [ ] Manifest
+- [x] Manifest
 - [ ] Installation Android
 - [ ] Fonctionnement hors ligne
 - [ ] Vérification mobile
