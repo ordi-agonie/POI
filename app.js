@@ -517,11 +517,26 @@ function lireFichierImport(event) {
   lecteur.readAsText(fichier);
 }
 
+function enregistrerServiceWorker() {
+  if (!("serviceWorker" in navigator)) {
+    return;
+  }
+
+  navigator.serviceWorker.register("./sw.js")
+    .then(() => {
+      console.log("Service Worker enregistré.");
+    })
+    .catch((erreur) => {
+      console.error("Échec de l'enregistrement :", erreur);
+    });
+}
+
 // --- Événements ---
 
 chargerPois();
 afficherPoiDuJour();
 afficherPoiParcours();
+enregistrerServiceWorker();
 
 bouton.addEventListener("click",ouvrirFormulaire);
 boutonEnregistrer.addEventListener("click", enregistrerPoi);
