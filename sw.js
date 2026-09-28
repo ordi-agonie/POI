@@ -1,4 +1,4 @@
-const CACHE = "poi-v1";
+const CACHE = "poi-v1.1";
 
 const FICHIERS = [
   "./",
