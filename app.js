@@ -188,7 +188,7 @@ function exporterPois() {
     
   const texte = JSON.stringify(donnees, null, 2);
 
-  const fichier = new Blob([donnees], {
+  const fichier = new Blob([texte], {
     type: "application/json"
   });
 
@@ -562,4 +562,5 @@ recherchePoi.addEventListener("input", filtrerPois);
 boutonSuivantPoi.addEventListener("click", afficherPoiParcours);
 boutonExporter.addEventListener("click", exporterPois);
 importeurPois.addEventListener("change", lireFichierImport);
+
 
