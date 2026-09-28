@@ -181,6 +181,19 @@ function sauvegarderPois() {
 }
 
 function exporterPois() {
+  const test = "TEST-EXPORT-123";
+
+  const fichier = new Blob([test], {
+    type: "text/plain"
+  });
+
+  const lien = document.createElement("a");
+  lien.href = URL.createObjectURL(fichier);
+  lien.download = "test.txt";
+  lien.click();
+}
+
+function exporterPoisbckp() {
   const donnees = {
     version: 1,
     pois: pois
