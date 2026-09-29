@@ -180,7 +180,7 @@ function sauvegarderPois() {
   localStorage.setItem("pois", JSON.stringify(pois));
 }
 
-function exporterPois() {
+function exporterPoistemp() {
   const test = "TEST-EXPORT-123";
 
   const fichier = new Blob([test], {
@@ -193,7 +193,7 @@ function exporterPois() {
   lien.click();
 }
 
-function exporterPoisbckp() {
+function exporterPois() {
   const donnees = {
     version: 1,
     pois: pois
